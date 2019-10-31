@@ -22,7 +22,20 @@ test("Gate controls are rendered", () => {
 });
 
 // buttons' text changes to reflect the state the door will be in if clicked
+test("Button text changes on click", async () => {
+  const controls = rtl.render(<Controls />);
+  const gateButton = controls.getByTestId("gate");
+  const lockButton = controls.getByTestId("lock");
+
+  rtl.act(() => {
+    rtl.fireEvent.click(gateButton);
+  });
+
+  expect(controls.getByText(/lock gate/i)).toBeVisible();
+  expect(controls.getByText(/open gate/i)).toBeVisible();
+});
 
 // the closed toggle button is disabled if the gate is locked
+//expect(lockBtn).toHaveProperty("disabled", true)
 
 // the locked toggle button is disabled if the gate is open
