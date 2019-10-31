@@ -21,12 +21,14 @@ exports[`<Dashboard /> snapshot 1`] = `
   >
     <button
       class="toggle-btn"
+      data-testid="lock"
       disabled=""
     >
       Lock Gate
     </button>
     <button
       class="toggle-btn"
+      data-testid="gate"
     >
       Close Gate
     </button>
