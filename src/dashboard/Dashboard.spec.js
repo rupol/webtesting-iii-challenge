@@ -75,32 +75,3 @@ test("Buttons disabled functionality", () => {
   expect(gateButton).toHaveProperty("disabled", true);
   expect(lockButton).toHaveProperty("disabled", false);
 });
-
-// describe("the Dashboard component", () => {
-//   it("shows 2 toggle buttons", () => {
-//     const wrapper = rtl.render(<Dashboard />);
-//     const buttons = wrapper.getAllByText(/Gate/i);
-//     expect(buttons.length).toBe(2);
-//   });
-
-//   it("doesn't locked when click on Lock Gate and gate is Open", () => {
-//     const wrapper = rtl.render(<Dashboard />);
-//     const button = wrapper.getByText(/Lock Gate/i);
-//     rtl.act(() => {
-//       rtl.fireEvent.click(button);
-//     });
-//     expect(wrapper.getByText(/Unlocked/i)).toHaveClass("green-led");
-//   });
-//   it("shows locked  and red-led when click on Lock Gate and gate is Closed", () => {
-//     const wrapper = rtl.render(<Dashboard />);
-//     const close = wrapper.getByText(/Close Gate/i);
-//     const lock = wrapper.getByText(/Lock Gate/i);
-//     rtl.act(() => {
-//       rtl.fireEvent.click(close);
-//     });
-//     rtl.act(() => {
-//       rtl.fireEvent.click(lock);
-//     });
-//     expect(wrapper.getByText(/Locked/i)).toHaveClass("red-led");
-//   });
-// });

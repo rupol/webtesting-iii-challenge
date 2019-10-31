@@ -26,5 +26,21 @@ test("Default gate display is rendered", () => {
 // displays 'Locked' if the `locked` prop is `true` and 'Unlocked' if otherwise
 
 // when `locked` or `closed` use the `red-led` class
+test("Display red if locked or closed", () => {
+  const display = rtl.render(<Display locked={true} closed={true} />);
+  const lockDisplay = display.getByText(/locked/i);
+  const gateDisplay = display.getByText(/closed/i);
+
+  expect(lockDisplay).toHaveClass("red-led");
+  expect(gateDisplay).toHaveClass("red-led");
+});
 
 // when `unlocked` or `open` use the `green-led` class
+test("Display red if locked or closed", () => {
+  const display = rtl.render(<Display locked={false} closed={false} />);
+  const lockDisplay = display.getByText(/unlocked/i);
+  const gateDisplay = display.getByText(/open/i);
+
+  expect(lockDisplay).toHaveClass("green-led");
+  expect(gateDisplay).toHaveClass("green-led");
+});
