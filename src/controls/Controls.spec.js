@@ -2,6 +2,7 @@
 import React from "react";
 import * as rtl from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
+
 import Controls from "./Controls";
 
 afterEach(rtl.cleanup);
@@ -21,21 +22,24 @@ test("Gate controls are rendered", () => {
   expect(close).toBeVisible();
 });
 
-// buttons' text changes to reflect the state the door will be in if clicked
-test("Button text changes on click", async () => {
-  const controls = rtl.render(<Controls />);
-  const gateButton = controls.getByTestId("gate");
-  const lockButton = controls.getByTestId("lock");
+test("Buttons fire toggleClosed and toggleLocked functions on click", () => {
+  const toggleClosed = jest.fn();
+  const toggleLocked = jest.fn();
+  const controls = rtl.render(
+    <Controls toggleClosed={toggleClosed} toggleLocked={toggleLocked} />
+  );
+  const gateButton = controls.getByText(/close gate/i);
+  const lockButton = controls.getByText(/lock gate/i);
 
   rtl.act(() => {
     rtl.fireEvent.click(gateButton);
   });
 
-  expect(controls.getByText(/lock gate/i)).toBeVisible();
-  expect(controls.getByText(/open gate/i)).toBeVisible();
+  expect(toggleClosed).toHaveBeenCalled;
+
+  rtl.act(() => {
+    rtl.fireEvent.click(lockButton);
+  });
+
+  expect(toggleLocked).toHaveBeenCalled;
 });
-
-// the closed toggle button is disabled if the gate is locked
-//expect(lockBtn).toHaveProperty("disabled", true)
-
-// the locked toggle button is disabled if the gate is open

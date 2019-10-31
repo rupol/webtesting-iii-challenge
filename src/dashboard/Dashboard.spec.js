@@ -24,3 +24,73 @@ test("shows the controls and display", () => {
   expect(unlocked).toBeVisible();
   expect(open).toBeVisible();
 });
+
+// buttons' text changes to reflect the state the door will be in if clicked
+test("Button text changes on click", () => {
+  const wrapper = rtl.render(<Dashboard />);
+  const gateButton = wrapper.getByTestId("gate");
+  const lockButton = wrapper.getByTestId("lock");
+
+  rtl.act(() => {
+    rtl.fireEvent.click(gateButton);
+  });
+
+  expect(gateButton).toHaveTextContent(/open/i);
+
+  rtl.act(() => {
+    rtl.fireEvent.click(lockButton);
+  });
+
+  expect(lockButton).toHaveTextContent(/unlock/i);
+});
+
+// the closed toggle button is disabled if the gate is locked
+// the locked toggle button is disabled if the gate is open
+/*
+test("buttons disabled functionality", () => {
+  const controls = render(<Controls />);
+  const gateButton = controls.getByText(/close gate/i);
+  const lockButton = controls.getByText(/lock gate/i);
+
+  expect(lockButton).toHaveProperty("disabled", true);
+
+  act(() => {
+    fireEvent.click(gateButton);
+  });
+
+  act(() => {
+    fireEvent.click(lockButton);
+  });
+
+  expect(gateButton).toHaveProperty("disabled", true);
+});
+*/
+
+// describe("the Dashboard component", () => {
+//   it("shows 2 toggle buttons", () => {
+//     const wrapper = rtl.render(<Dashboard />);
+//     const buttons = wrapper.getAllByText(/Gate/i);
+//     expect(buttons.length).toBe(2);
+//   });
+
+//   it("doesn't locked when click on Lock Gate and gate is Open", () => {
+//     const wrapper = rtl.render(<Dashboard />);
+//     const button = wrapper.getByText(/Lock Gate/i);
+//     rtl.act(() => {
+//       rtl.fireEvent.click(button);
+//     });
+//     expect(wrapper.getByText(/Unlocked/i)).toHaveClass("green-led");
+//   });
+//   it("shows locked  and red-led when click on Lock Gate and gate is Closed", () => {
+//     const wrapper = rtl.render(<Dashboard />);
+//     const close = wrapper.getByText(/Close Gate/i);
+//     const lock = wrapper.getByText(/Lock Gate/i);
+//     rtl.act(() => {
+//       rtl.fireEvent.click(close);
+//     });
+//     rtl.act(() => {
+//       rtl.fireEvent.click(lock);
+//     });
+//     expect(wrapper.getByText(/Locked/i)).toHaveClass("red-led");
+//   });
+// });
