@@ -31,40 +31,50 @@ test("Button text changes on click", () => {
   const gateButton = wrapper.getByTestId("gate");
   const lockButton = wrapper.getByTestId("lock");
 
+  // click "close gate"
   rtl.act(() => {
     rtl.fireEvent.click(gateButton);
   });
 
-  expect(gateButton).toHaveTextContent(/open/i);
+  // button text changes to "open gate"
+  expect(gateButton).toHaveTextContent(/open gate/i);
+  expect(lockButton).toHaveTextContent(/lock gate/i);
 
+  // click "lock gate"
   rtl.act(() => {
     rtl.fireEvent.click(lockButton);
   });
 
-  expect(lockButton).toHaveTextContent(/unlock/i);
+  // button text changes to "unlock gate"
+  expect(lockButton).toHaveTextContent(/unlock gate/i);
+  expect(gateButton).toHaveTextContent(/open gate/i);
 });
 
 // the closed toggle button is disabled if the gate is locked
 // the locked toggle button is disabled if the gate is open
-/*
-test("buttons disabled functionality", () => {
-  const controls = render(<Controls />);
-  const gateButton = controls.getByText(/close gate/i);
-  const lockButton = controls.getByText(/lock gate/i);
+test("Buttons disabled functionality", () => {
+  const wrapper = rtl.render(<Dashboard />);
+  const gateButton = wrapper.getByTestId("gate");
+  const lockButton = wrapper.getByTestId("lock");
 
+  // default - "lock gate" is disabled
   expect(lockButton).toHaveProperty("disabled", true);
+  expect(gateButton).toHaveProperty("disabled", false);
 
-  act(() => {
-    fireEvent.click(gateButton);
+  // click "close gate"
+  rtl.act(() => {
+    rtl.fireEvent.click(gateButton);
   });
 
-  act(() => {
-    fireEvent.click(lockButton);
+  // click "lock gate"
+  rtl.act(() => {
+    rtl.fireEvent.click(lockButton);
   });
 
+  // after clicks - "open gate" is disabled
   expect(gateButton).toHaveProperty("disabled", true);
+  expect(lockButton).toHaveProperty("disabled", false);
 });
-*/
 
 // describe("the Dashboard component", () => {
 //   it("shows 2 toggle buttons", () => {
